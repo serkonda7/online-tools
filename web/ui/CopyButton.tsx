@@ -1,6 +1,6 @@
+import { IconCopy } from '@tabler/icons-solidjs'
 import { createSignal, onCleanup } from 'solid-js'
 import type { ToolContext } from '../app/types'
-import copyIcon from '../img/copy.svg'
 
 /** Shared across tools: copy a value, confirm it, fall back gracefully. */
 export function CopyButton(props: {
@@ -46,7 +46,7 @@ export function CopyButton(props: {
 			aria-label={`${copied() ? 'Copied' : 'Copy'} ${props.label}`}
 			onClick={handleClick}
 		>
-			<img class="copy-icon" src={copyIcon} alt="" aria-hidden="true" />
+			<IconCopy class="copy-icon" aria-hidden="true" />
 			<span>{copied() ? 'copied' : 'copy'}</span>
 		</button>
 	)
