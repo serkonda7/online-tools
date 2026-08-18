@@ -1,220 +1,220 @@
 .layout {
-  display: grid;
-  grid-template-columns: var(--sidebar-width) minmax(0, 1fr);
-  min-height: 100vh;
+	display: grid;
+	grid-template-columns: var(--sidebar-width) minmax(0, 1fr);
+	min-height: 100vh;
 }
 
 /* Sidebar */
 
 .sidebar {
-  position: sticky;
-  top: 0;
-  align-self: start;
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-  height: 100vh;
-  border-right: 1px solid var(--rule);
-  padding: 28px 20px;
+	position: sticky;
+	top: 0;
+	align-self: start;
+	display: flex;
+	flex-direction: column;
+	gap: 18px;
+	height: 100vh;
+	border-right: 1px solid var(--rule);
+	padding: 28px 20px;
 }
 
 .brand {
-  color: var(--fg);
-  font-size: 15px;
-  font-weight: 650;
-  letter-spacing: -.02em;
-  text-decoration: none;
+	color: var(--fg);
+	font-size: 15px;
+	font-weight: 650;
+	letter-spacing: -0.02em;
+	text-decoration: none;
 }
 
 .brand:hover {
-  color: var(--accent);
+	color: var(--accent);
 }
 
 .search {
-  border: 1px solid var(--rule);
-  border-radius: 6px;
-  background: var(--surface);
-  color: var(--fg);
-  outline: 0;
-  padding: 7px 9px;
-  font: inherit;
-  font-size: 13px;
+	border: 1px solid var(--rule);
+	border-radius: 6px;
+	background: var(--surface);
+	color: var(--fg);
+	outline: 0;
+	padding: 7px 9px;
+	font: inherit;
+	font-size: 13px;
 }
 
 .search:focus {
-  border-color: var(--accent);
+	border-color: var(--accent);
 }
 
 .tool-list {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
+	display: flex;
+	flex-direction: column;
+	gap: 2px;
+	margin: 0;
+	padding: 0;
+	list-style: none;
 }
 
 .tool-link {
-  display: block;
-  border-radius: 6px;
-  color: var(--muted);
-  padding: 7px 9px;
-  font-size: 14px;
-  text-decoration: none;
-  transition: .15s ease;
+	display: block;
+	border-radius: 6px;
+	color: var(--muted);
+	padding: 7px 9px;
+	font-size: 14px;
+	text-decoration: none;
+	transition: 0.15s ease;
 }
 
 .tool-link:hover {
-  background: var(--surface);
-  color: var(--fg);
+	background: var(--surface);
+	color: var(--fg);
 }
 
 .tool-link[aria-current="page"] {
-  background: var(--surface);
-  color: var(--accent);
-  font-weight: 550;
+	background: var(--surface);
+	color: var(--accent);
+	font-weight: 550;
 }
 
 .tool-list-empty {
-  color: var(--faint);
-  padding: 7px 9px;
-  font-size: 13px;
+	color: var(--faint);
+	padding: 7px 9px;
+	font-size: 13px;
 }
 
 /* Content */
 
 .content {
-  min-width: 0;
+	min-width: 0;
 }
 
 .tool-root,
 .home,
 .notice {
-  width: min(100% - 40px, 680px);
-  margin: 0 auto;
-  padding: 52px 0 40px;
+	width: min(100% - 40px, 680px);
+	margin: 0 auto;
+	padding: 52px 0 40px;
 }
 
 .intro {
-  margin-bottom: 28px;
+	margin-bottom: 28px;
 }
 
 .intro p {
-  margin: 12px 0 0;
-  color: var(--muted);
-  font-size: 15px;
+	margin: 12px 0 0;
+	color: var(--muted);
+	font-size: 15px;
 }
 
 /* Home grid */
 
 .tool-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 12px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+	gap: 12px;
+	margin: 0;
+	padding: 0;
+	list-style: none;
 }
 
 .tool-card {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  height: 100%;
-  border: 1px solid var(--rule);
-  border-radius: var(--radius);
-  padding: 16px;
-  text-decoration: none;
-  transition: .15s ease;
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+	height: 100%;
+	border: 1px solid var(--rule);
+	border-radius: var(--radius);
+	padding: 16px;
+	text-decoration: none;
+	transition: 0.15s ease;
 }
 
 .tool-card:hover {
-  border-color: var(--accent);
-  background: var(--surface);
+	border-color: var(--accent);
+	background: var(--surface);
 }
 
 .tool-card-category {
-  color: var(--muted);
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: .13em;
-  text-transform: uppercase;
+	color: var(--muted);
+	font-size: 11px;
+	font-weight: 700;
+	letter-spacing: 0.13em;
+	text-transform: uppercase;
 }
 
 .tool-card-title {
-  color: var(--fg);
-  font-size: 17px;
-  font-weight: 600;
-  letter-spacing: -.02em;
+	color: var(--fg);
+	font-size: 17px;
+	font-weight: 600;
+	letter-spacing: -0.02em;
 }
 
 .tool-card-description {
-  color: var(--muted);
-  font-size: 13px;
-  line-height: 1.45;
+	color: var(--muted);
+	font-size: 13px;
+	line-height: 1.45;
 }
 
 /* Toast */
 
 .toast {
-  position: fixed;
-  bottom: 22px;
-  left: 50%;
-  padding: 9px 13px;
-  border-radius: 6px;
-  background: var(--fg);
-  color: white;
-  font-size: 12px;
-  opacity: 0;
-  pointer-events: none;
-  transform: translate(-50%, 8px);
-  transition: .2s ease;
+	position: fixed;
+	bottom: 22px;
+	left: 50%;
+	padding: 9px 13px;
+	border-radius: 6px;
+	background: var(--fg);
+	color: white;
+	font-size: 12px;
+	opacity: 0;
+	pointer-events: none;
+	transform: translate(-50%, 8px);
+	transition: 0.2s ease;
 }
 
 .toast.visible {
-  opacity: 1;
-  transform: translate(-50%, 0);
+	opacity: 1;
+	transform: translate(-50%, 0);
 }
 
 .notice p {
-  color: var(--muted);
-  margin: 14px 0 22px;
+	color: var(--muted);
+	margin: 14px 0 22px;
 }
 
 @media (max-width: 720px) {
-  .layout {
-    grid-template-columns: minmax(0, 1fr);
-  }
+	.layout {
+		grid-template-columns: minmax(0, 1fr);
+	}
 
-  .sidebar {
-    position: static;
-    display: grid;
-    grid-template-columns: auto minmax(0, 1fr);
-    align-items: center;
-    gap: 12px;
-    height: auto;
-    border-right: 0;
-    border-bottom: 1px solid var(--rule);
-    padding: 16px 20px;
-  }
+	.sidebar {
+		position: static;
+		display: grid;
+		grid-template-columns: auto minmax(0, 1fr);
+		align-items: center;
+		gap: 12px;
+		height: auto;
+		border-right: 0;
+		border-bottom: 1px solid var(--rule);
+		padding: 16px 20px;
+	}
 
-  .sidebar nav {
-    grid-column: 1 / -1;
-    overflow-x: auto;
-  }
+	.sidebar nav {
+		grid-column: 1 / -1;
+		overflow-x: auto;
+	}
 
-  .tool-list {
-    flex-direction: row;
-  }
+	.tool-list {
+		flex-direction: row;
+	}
 
-  .tool-link {
-    white-space: nowrap;
-  }
+	.tool-link {
+		white-space: nowrap;
+	}
 
-  .tool-root,
-  .home,
-  .notice {
-    width: min(100% - 32px, 680px);
-    padding-top: 32px;
-  }
+	.tool-root,
+	.home,
+	.notice {
+		width: min(100% - 32px, 680px);
+		padding-top: 32px;
+	}
 }
