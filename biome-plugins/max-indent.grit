@@ -1,0 +1,8 @@
+// Caps indentation at 8 tabs. Biome has no max-depth rule, so this matches the
+// raw file text: anything nested deeper wants an extracted component or helper.
+language js
+
+file(body=$body) where {
+	$body <: r"(?s).*\n\t{9,}\S.*",
+	register_diagnostic(span=$body, message="This file indents past 8 tabs. Extract a component or helper to flatten it.")
+}
