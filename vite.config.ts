@@ -3,6 +3,7 @@ import solid from 'vite-plugin-solid';
 
 export default defineConfig({
   root: 'web',
+  base: process.env['BASE_PATH'] ?? '/',
   plugins: [solid()],
   build: {
     outDir: '../dist',

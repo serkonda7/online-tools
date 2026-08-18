@@ -7,7 +7,7 @@ import {
   toOctal,
   toSymbolic,
   withPermission,
-} from './permissions';
+} from './permissions.ts';
 
 describe('toSymbolic', () => {
   test('renders the default mode', () => {
