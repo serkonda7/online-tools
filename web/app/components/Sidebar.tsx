@@ -1,9 +1,11 @@
+import { IconMoon, IconSun } from '@tabler/icons-solidjs'
 import { createMemo, createSignal, For } from 'solid-js'
 import { tools } from '../registry'
 import { ToolLink } from './ToolLink'
 
 export function Sidebar(props: { activeId: () => string | null }) {
 	const [query, setQuery] = createSignal('')
+	const [dark, setDark] = createSignal(document.documentElement.dataset.theme === 'dark')
 
 	const matches = createMemo(() => {
 		const needle = query().trim().toLowerCase()
@@ -15,11 +17,23 @@ export function Sidebar(props: { activeId: () => string | null }) {
 		)
 	})
 
+	const toggleTheme = () => {
+		const next = !dark()
+		setDark(next)
+		document.documentElement.dataset.theme = next ? 'dark' : 'light'
+		localStorage.setItem('theme', next ? 'dark' : 'light')
+	}
+
 	return (
 		<aside class="sidebar">
 			<ToolLink toolId={null} class="brand">
 				Online tools
 			</ToolLink>
+
+			<button class="theme-toggle" type="button" onClick={toggleTheme}>
+				{dark() ? <IconSun aria-hidden="true" /> : <IconMoon aria-hidden="true" />}
+				<span>{dark() ? 'Light mode' : 'Dark mode'}</span>
+			</button>
 
 			<input
 				class="search"

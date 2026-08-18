@@ -30,6 +30,29 @@
 	color: var(--accent);
 }
 
+.theme-toggle {
+	display: inline-flex;
+	align-items: center;
+	align-self: flex-start;
+	gap: 7px;
+	border: 0;
+	background: transparent;
+	color: var(--muted);
+	cursor: pointer;
+	padding: 0;
+	font: inherit;
+	font-size: 12px;
+}
+
+.theme-toggle:hover {
+	color: var(--accent);
+}
+
+.theme-toggle svg {
+	width: 15px;
+	height: 15px;
+}
+
 .search {
 	border: 1px solid var(--rule);
 	border-radius: 6px;
