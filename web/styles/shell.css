@@ -31,6 +31,10 @@
 }
 
 .theme-toggle {
+	position: fixed;
+	top: 28px;
+	right: 20px;
+	z-index: 1;
 	display: inline-flex;
 	align-items: center;
 	align-self: flex-start;
@@ -233,9 +237,18 @@
 		padding: 16px 20px;
 	}
 
+	.theme-toggle {
+		top: 16px;
+		right: 16px;
+	}
+
 	.sidebar nav {
 		grid-column: 1 / -1;
 		overflow-x: auto;
+	}
+
+	.search {
+		grid-column: 1 / -1;
 	}
 
 	.tool-list {
