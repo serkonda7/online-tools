@@ -1,9 +1,9 @@
 {
   "compilerOptions": {
-    "target": "ESNext",
-    "module": "ESNext",
+    "target": "esnext",
+    "module": "preserve",
     "moduleResolution": "bundler",
-    "lib": ["ESNext", "DOM", "DOM.Iterable"],
+    "lib": ["esnext", "DOM", "DOM.Iterable"],
     "jsx": "preserve",
     "jsxImportSource": "solid-js",
     "strict": true,
