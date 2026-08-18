@@ -58,6 +58,7 @@
 }
 
 .search {
+	width: 100%;
 	border: 1px solid var(--rule);
 	border-radius: 6px;
 	background: var(--surface);
@@ -66,6 +67,30 @@
 	padding: 7px 9px;
 	font: inherit;
 	font-size: 13px;
+}
+
+.search-control {
+	position: relative;
+}
+
+.search-control kbd {
+	position: absolute;
+	top: 50%;
+	right: 8px;
+	padding: 2px 5px;
+	border: 1px solid var(--rule);
+	border-radius: 4px;
+	background: var(--bg);
+	color: var(--faint);
+	font-family: var(--font-mono);
+	font-size: 10px;
+	line-height: 1.2;
+	pointer-events: none;
+	transform: translateY(-50%);
+}
+
+.search-control:focus-within kbd {
+	display: none;
 }
 
 .search:focus {
