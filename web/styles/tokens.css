@@ -23,3 +23,21 @@
 	--radius: 8px;
 	--sidebar-width: 216px;
 }
+
+:root[data-theme="dark"] {
+	color-scheme: dark;
+
+	--bg: #171815;
+	--surface: #22231f;
+	--fg: #eeeee8;
+	--muted: #a8aaa0;
+	--faint: #777a71;
+	--rule: #464841;
+	--rule-soft: #30322d;
+
+	--accent: #e27a4d;
+	--accent-soft: #8f5039;
+	--success: #6caf86;
+	--success-strong: #85c49c;
+	--danger: #e06b5b;
+}
