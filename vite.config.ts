@@ -9,5 +9,6 @@ export default defineConfig({
 		outDir: '../dist',
 		emptyOutDir: true,
 		target: 'esnext',
+		modulePreload: { polyfill: false },
 	},
 })

@@ -1,4 +1,4 @@
-import { createEffect, createMemo, Match, Switch } from 'solid-js'
+import { createEffect, Show } from 'solid-js'
 import { Sidebar } from './components/Sidebar'
 import { Toast } from './components/Toast'
 import { ToolGrid } from './components/ToolGrid'
@@ -13,11 +13,10 @@ const SITE_TITLE = 'Online Tools'
 const SITE_DESCRIPTION = 'Small, fast developer utilities that run entirely in your browser.'
 
 export function App() {
-	const active = createMemo(() => {
+	const active = () => {
 		const id = route().toolId
 		return id === null ? null : (toolsById.get(id) ?? null)
-	})
-	const notFound = createMemo(() => route().toolId !== null && active() === null)
+	}
 
 	// Built once and shared by every tool — the shell's whole public surface.
 	const ctx: ToolContext = {
@@ -40,22 +39,25 @@ export function App() {
 		<div class="layout">
 			<Sidebar activeId={() => active()?.id ?? null} />
 			<main class="content">
-				<Switch fallback={<ToolGrid />}>
-					<Match when={active()} keyed>
-						{(tool) => <ToolHost manifest={tool} ctx={ctx} />}
-					</Match>
-					<Match when={notFound()}>
-						<div class="notice">
-							<h1>Tool not found</h1>
-							<p>
-								Nothing is registered at <code>{route().toolId}</code>.
-							</p>
-							<button class="reset" type="button" onClick={() => navigate(null)}>
-								Back to all tools
-							</button>
-						</div>
-					</Match>
-				</Switch>
+				<Show
+					when={active()}
+					keyed
+					fallback={
+						<Show when={route().toolId !== null} fallback={<ToolGrid />}>
+							<div class="notice">
+								<h1>Tool not found</h1>
+								<p>
+									Nothing is registered at <code>{route().toolId}</code>.
+								</p>
+								<button class="reset" type="button" onClick={() => navigate(null)}>
+									Back to all tools
+								</button>
+							</div>
+						</Show>
+					}
+				>
+					{(tool) => <ToolHost manifest={tool} ctx={ctx} />}
+				</Show>
 			</main>
 			<Toast />
 		</div>
