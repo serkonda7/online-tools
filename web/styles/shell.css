@@ -110,6 +110,18 @@
 	min-width: 0;
 }
 
+.build-info {
+	display: flex;
+	justify-content: flex-start;
+	gap: 8px;
+	width: min(100% - 40px, 680px);
+	margin: 0 auto;
+	padding: 8px 0 24px;
+	color: var(--faint);
+	font-family: var(--font-mono);
+	font-size: 11px;
+}
+
 .tool-root,
 .home,
 .notice {
@@ -239,5 +251,10 @@
 	.notice {
 		width: min(100% - 32px, 680px);
 		padding-top: 32px;
+	}
+
+	.build-info {
+		grid-column: 1;
+		width: min(100% - 32px, 680px);
 	}
 }

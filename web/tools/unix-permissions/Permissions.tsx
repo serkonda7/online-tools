@@ -7,6 +7,7 @@ import {
 	type Mode,
 	PERMISSION_SYMBOL,
 	PERMISSIONS,
+	type Permission,
 	parseOctal,
 	parseSymbolic,
 	ROLES,
@@ -17,6 +18,32 @@ import {
 } from './permissions'
 
 const ROLE_LABEL: Record<Role, string> = { user: 'user', group: 'group', other: 'others' }
+
+function PermissionRow(props: { role: Role; mode: Mode; onChange: (next: Mode) => void }) {
+	const toggle = (permission: Permission, checked: boolean) =>
+		props.onChange(withPermission(props.mode, props.role, permission, checked))
+
+	return (
+		<div class="permission-row">
+			<h2>{ROLE_LABEL[props.role]}</h2>
+			<For each={PERMISSIONS}>
+				{(permission) => (
+					<label>
+						<input
+							type="checkbox"
+							checked={has(props.mode, props.role, permission)}
+							onChange={(event) => toggle(permission, event.currentTarget.checked)}
+						/>
+						<span>{PERMISSION_SYMBOL[permission]}</span>
+						<b class="sr-only">
+							{ROLE_LABEL[props.role]} {permission}
+						</b>
+					</label>
+				)}
+			</For>
+		</div>
+	)
+}
 
 export function Permissions(props: { ctx: ToolContext }) {
 	// One source of truth. Octal, symbolic and every checkbox derive from it,
@@ -36,6 +63,16 @@ export function Permissions(props: { ctx: ToolContext }) {
 		props.ctx.setParams({ mode: toOctal(next) })
 		octalInput.setCustomValidity('')
 		symbolicInput.setCustomValidity('')
+	}
+
+	// Typing an unparseable value keeps the field marked invalid instead of
+	// snapping the whole tool back to the last good mode.
+	function onEdit(parse: (raw: string) => Mode | null, hint: string) {
+		return (event: { currentTarget: HTMLInputElement }) => {
+			const parsed = parse(event.currentTarget.value)
+			event.currentTarget.setCustomValidity(parsed === null ? hint : '')
+			if (parsed !== null) apply(parsed)
+		}
 	}
 
 	return (
@@ -60,13 +97,7 @@ export function Permissions(props: { ctx: ToolContext }) {
 							aria-label="Octal mode"
 							spellcheck={false}
 							autocomplete="off"
-							onInput={(event) => {
-								const parsed = parseOctal(event.currentTarget.value)
-								event.currentTarget.setCustomValidity(
-									parsed === null ? 'Enter three octal digits from 0 to 7.' : '',
-								)
-								if (parsed !== null) apply(parsed)
-							}}
+							onInput={onEdit(parseOctal, 'Enter three octal digits from 0 to 7.')}
 						/>
 						<CopyButton
 							ctx={props.ctx}
@@ -90,13 +121,7 @@ export function Permissions(props: { ctx: ToolContext }) {
 							aria-label="Symbolic mode"
 							spellcheck={false}
 							autocomplete="off"
-							onInput={(event) => {
-								const parsed = parseSymbolic(event.currentTarget.value)
-								event.currentTarget.setCustomValidity(
-									parsed === null ? 'Use -rwxrwxrwx or rwxrwxrwx format.' : '',
-								)
-								if (parsed !== null) apply(parsed)
-							}}
+							onInput={onEdit(parseSymbolic, 'Use -rwxrwxrwx or rwxrwxrwx format.')}
 						/>
 						<CopyButton
 							ctx={props.ctx}
@@ -115,35 +140,7 @@ export function Permissions(props: { ctx: ToolContext }) {
 				</div>
 
 				<For each={ROLES}>
-					{(role) => (
-						<div class="permission-row">
-							<h2>{ROLE_LABEL[role]}</h2>
-							<For each={PERMISSIONS}>
-								{(permission) => (
-									<label>
-										<input
-											type="checkbox"
-											checked={has(mode(), role, permission)}
-											onChange={(event) =>
-												apply(
-													withPermission(
-														mode(),
-														role,
-														permission,
-														event.currentTarget.checked,
-													),
-												)
-											}
-										/>
-										<span>{PERMISSION_SYMBOL[permission]}</span>
-										<b class="sr-only">
-											{ROLE_LABEL[role]} {permission}
-										</b>
-									</label>
-								)}
-							</For>
-						</div>
-					)}
+					{(role) => <PermissionRow role={role} mode={mode()} onChange={apply} />}
 				</For>
 			</section>
 

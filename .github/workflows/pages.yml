@@ -30,6 +30,7 @@ jobs:
       - run: bun run build
         env:
           BASE_PATH: ${{ steps.pages.outputs.base_path }}
+          COMMIT_SHA: ${{ github.event.workflow_run.head_sha }}
       - uses: actions/upload-pages-artifact@v5
         with:
           path: dist

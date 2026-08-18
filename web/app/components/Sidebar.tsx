@@ -1,7 +1,18 @@
 import { IconMoon, IconSun } from '@tabler/icons-solidjs'
 import { createMemo, createSignal, For } from 'solid-js'
 import { tools } from '../registry'
+import type { ToolManifest } from '../types'
 import { ToolLink } from './ToolLink'
+
+function SidebarItem(props: { tool: ToolManifest; current: boolean }) {
+	return (
+		<li>
+			<ToolLink toolId={props.tool.id} class="tool-link" current={props.current}>
+				{props.tool.short}
+			</ToolLink>
+		</li>
+	)
+}
 
 export function Sidebar(props: { activeId: () => string | null }) {
 	const [query, setQuery] = createSignal('')
@@ -50,15 +61,7 @@ export function Sidebar(props: { activeId: () => string | null }) {
 				<ul class="tool-list">
 					<For each={matches()} fallback={<li class="tool-list-empty">No matches</li>}>
 						{(tool) => (
-							<li>
-								<ToolLink
-									toolId={tool.id}
-									class="tool-link"
-									current={props.activeId() === tool.id}
-								>
-									{tool.short}
-								</ToolLink>
-							</li>
+							<SidebarItem tool={tool} current={props.activeId() === tool.id} />
 						)}
 					</For>
 				</ul>
