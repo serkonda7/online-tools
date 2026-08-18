@@ -13,7 +13,7 @@ import { join } from 'node:path'
 import { tools } from '../web/app/registry'
 
 const SITE_TITLE = 'Online Tools'
-const siteUrl = (process.env['SITE_URL'] ?? '').replace(/\/+$/, '')
+const siteUrl = (process.env.SITE_URL ?? '').replace(/\/+$/, '')
 
 const dist = new URL('../dist/', import.meta.url).pathname
 const shell = await readFile(join(dist, 'index.html'), 'utf8')
