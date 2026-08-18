@@ -12,6 +12,20 @@ import type { ToolContext } from './types'
 const SITE_TITLE = 'Online Tools'
 const SITE_DESCRIPTION = 'Small, fast developer utilities that run entirely in your browser.'
 
+function NotFound(props: { toolId: string }) {
+	return (
+		<div class="notice">
+			<h1>Tool not found</h1>
+			<p>
+				Nothing is registered at <code>{props.toolId}</code>.
+			</p>
+			<button class="reset" type="button" onClick={() => navigate(null)}>
+				Back to all tools
+			</button>
+		</div>
+	)
+}
+
 export function App() {
 	const active = () => {
 		const id = route().toolId
@@ -43,21 +57,17 @@ export function App() {
 					when={active()}
 					keyed
 					fallback={
-						<Show when={route().toolId !== null} fallback={<ToolGrid />}>
-							<div class="notice">
-								<h1>Tool not found</h1>
-								<p>
-									Nothing is registered at <code>{route().toolId}</code>.
-								</p>
-								<button class="reset" type="button" onClick={() => navigate(null)}>
-									Back to all tools
-								</button>
-							</div>
+						<Show when={route().toolId} keyed fallback={<ToolGrid />}>
+							{(toolId) => <NotFound toolId={toolId} />}
 						</Show>
 					}
 				>
 					{(tool) => <ToolHost manifest={tool} ctx={ctx} />}
 				</Show>
+				<footer class="build-info">
+					<span>build {import.meta.env.VITE_COMMIT}</span>
+					<span>{import.meta.env.VITE_BUILD_DATE}</span>
+				</footer>
 			</main>
 			<Toast />
 		</div>
