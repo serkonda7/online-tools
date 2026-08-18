@@ -11,6 +11,9 @@ import type { ToolContext } from './types'
 
 const SITE_TITLE = 'Online Tools'
 const SITE_DESCRIPTION = 'Small, fast developer utilities that run entirely in your browser.'
+const COMMIT = import.meta.env.VITE_COMMIT
+const BUILD_DATE = import.meta.env.VITE_BUILD_DATE
+const COMMIT_URL = `https://github.com/serkonda7/online-tools/commit/${COMMIT}`
 
 function NotFound(props: { toolId: string }) {
 	return (
@@ -65,8 +68,8 @@ export function App() {
 					{(tool) => <ToolHost manifest={tool} ctx={ctx} />}
 				</Show>
 				<footer class="build-info">
-					<span>Last updated: 2026-08-17 09:12:13, Commit: </span>
-					<a href="https://github.com/serkonda7/online-tools/commit/5ad2d1f">5ad2d1f</a>
+					<span>Last updated: {BUILD_DATE}, Commit: </span>
+					<a href={COMMIT_URL}>{COMMIT}</a>
 				</footer>
 			</main>
 			<Toast />
