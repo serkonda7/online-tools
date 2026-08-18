@@ -1,5 +1,5 @@
 import { IconMoon, IconSun } from '@tabler/icons-solidjs'
-import { createMemo, createSignal, For } from 'solid-js'
+import { createMemo, createSignal, For, onCleanup, onMount } from 'solid-js'
 import { tools } from '../registry'
 import type { ToolManifest } from '../types'
 import { ToolLink } from './ToolLink'
@@ -17,6 +17,20 @@ function SidebarItem(props: { tool: ToolManifest; current: boolean }) {
 export function Sidebar(props: { activeId: () => string | null }) {
 	const [query, setQuery] = createSignal('')
 	const [dark, setDark] = createSignal(document.documentElement.dataset.theme === 'dark')
+	let searchInput: HTMLInputElement | undefined
+
+	onMount(() => {
+		const handleShortcut = (event: KeyboardEvent) => {
+			if (event.ctrlKey && event.key.toLowerCase() === 'k') {
+				event.preventDefault()
+				searchInput?.focus()
+				searchInput?.select()
+			}
+		}
+
+		document.addEventListener('keydown', handleShortcut)
+		onCleanup(() => document.removeEventListener('keydown', handleShortcut))
+	})
 
 	const matches = createMemo(() => {
 		const needle = query().trim().toLowerCase()
@@ -46,16 +60,21 @@ export function Sidebar(props: { activeId: () => string | null }) {
 				<span>{dark() ? 'Light mode' : 'Dark mode'}</span>
 			</button>
 
-			<input
-				class="search"
-				type="search"
-				placeholder="Search"
-				aria-label="Search tools"
-				spellcheck={false}
-				autocomplete="off"
-				value={query()}
-				onInput={(event) => setQuery(event.currentTarget.value)}
-			/>
+			<div class="search-control">
+				<input
+					ref={searchInput}
+					class="search"
+					type="search"
+					placeholder="Search"
+					aria-label="Search tools"
+					aria-keyshortcuts="Control+K"
+					spellcheck={false}
+					autocomplete="off"
+					value={query()}
+					onInput={(event) => setQuery(event.currentTarget.value)}
+				/>
+				<kbd>Ctrl K</kbd>
+			</div>
 
 			<nav aria-label="Tools">
 				<ul class="tool-list">

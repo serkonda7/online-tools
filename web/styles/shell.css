@@ -31,6 +31,10 @@
 }
 
 .theme-toggle {
+	position: fixed;
+	top: 28px;
+	right: 20px;
+	z-index: 1;
 	display: inline-flex;
 	align-items: center;
 	align-self: flex-start;
@@ -54,6 +58,7 @@
 }
 
 .search {
+	width: 100%;
 	border: 1px solid var(--rule);
 	border-radius: 6px;
 	background: var(--surface);
@@ -62,6 +67,30 @@
 	padding: 7px 9px;
 	font: inherit;
 	font-size: 13px;
+}
+
+.search-control {
+	position: relative;
+}
+
+.search-control kbd {
+	position: absolute;
+	top: 50%;
+	right: 8px;
+	padding: 2px 5px;
+	border: 1px solid var(--rule);
+	border-radius: 4px;
+	background: var(--bg);
+	color: var(--faint);
+	font-family: var(--font-mono);
+	font-size: 10px;
+	line-height: 1.2;
+	pointer-events: none;
+	transform: translateY(-50%);
+}
+
+.search-control:focus-within kbd {
+	display: none;
 }
 
 .search:focus {
@@ -233,9 +262,18 @@
 		padding: 16px 20px;
 	}
 
+	.theme-toggle {
+		top: 16px;
+		right: 16px;
+	}
+
 	.sidebar nav {
 		grid-column: 1 / -1;
 		overflow-x: auto;
+	}
+
+	.search {
+		grid-column: 1 / -1;
 	}
 
 	.tool-list {
