@@ -58,6 +58,10 @@ export function App() {
 				>
 					{(tool) => <ToolHost manifest={tool} ctx={ctx} />}
 				</Show>
+				<footer class="build-info">
+					<span>build {import.meta.env.VITE_COMMIT}</span>
+					<span>{import.meta.env.VITE_BUILD_DATE}</span>
+				</footer>
 			</main>
 			<Toast />
 		</div>
