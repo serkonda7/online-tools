@@ -1,0 +1,63 @@
+import { Match, Switch, createEffect, createMemo } from 'solid-js';
+import { Sidebar } from './components/Sidebar';
+import { Toast } from './components/Toast';
+import { ToolGrid } from './components/ToolGrid';
+import { ToolHost } from './components/ToolHost';
+import { toolsById } from './registry';
+import { navigate, route, setParams } from './router';
+import { copyValue } from './services/clipboard';
+import { showToast } from './services/toast';
+import type { ToolContext } from './types';
+
+const SITE_TITLE = 'Online Tools';
+const SITE_DESCRIPTION = 'Small, fast developer utilities that run entirely in your browser.';
+
+export function App() {
+  const active = createMemo(() => {
+    const id = route().toolId;
+    return id === null ? null : toolsById.get(id) ?? null;
+  });
+  const notFound = createMemo(() => route().toolId !== null && active() === null);
+
+  // Built once and shared by every tool — the shell's whole public surface.
+  const ctx: ToolContext = {
+    toast: showToast,
+    copy: copyValue,
+    params: () => route().params,
+    setParams,
+    navigate,
+  };
+
+  createEffect(() => {
+    const tool = active();
+    document.title = tool === null ? SITE_TITLE : `${tool.title} — ${SITE_TITLE}`;
+    document
+      .querySelector('meta[name="description"]')
+      ?.setAttribute('content', tool === null ? SITE_DESCRIPTION : tool.description);
+  });
+
+  return (
+    <div class="layout">
+      <Sidebar activeId={() => active()?.id ?? null} />
+      <main class="content">
+        <Switch fallback={<ToolGrid />}>
+          <Match when={active()} keyed>
+            {(tool) => <ToolHost manifest={tool} ctx={ctx} />}
+          </Match>
+          <Match when={notFound()}>
+            <div class="notice">
+              <h1>Tool not found</h1>
+              <p>
+                Nothing is registered at <code>{route().toolId}</code>.
+              </p>
+              <button class="reset" type="button" onClick={() => navigate(null)}>
+                Back to all tools
+              </button>
+            </div>
+          </Match>
+        </Switch>
+      </main>
+      <Toast />
+    </div>
+  );
+}

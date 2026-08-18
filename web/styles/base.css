@@ -1,0 +1,106 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: var(--font-sans);
+  color: var(--fg);
+  background: var(--bg);
+  font-synthesis: none;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(30px, 6vw, 48px);
+  letter-spacing: -.055em;
+  line-height: .98;
+  font-weight: 650;
+}
+
+code {
+  color: var(--fg);
+  font-family: var(--font-mono);
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible + span {
+  outline: 3px solid var(--accent-soft);
+  outline-offset: 3px;
+}
+
+.reset {
+  border: 0;
+  border-bottom: 1px solid #979890;
+  background: transparent;
+  color: #555750;
+  cursor: pointer;
+  padding: 2px 0;
+  font: inherit;
+}
+
+.reset:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+.copy {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 36px;
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  padding: 6px 9px;
+  font: inherit;
+  font-size: 11px;
+  text-transform: uppercase;
+  transition: .15s ease;
+}
+
+.copy:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.copy:active {
+  transform: translateY(1px);
+}
+
+.copy:disabled {
+  cursor: wait;
+  opacity: .65;
+}
+
+.copy.copied {
+  border-color: var(--success);
+  color: var(--success-strong);
+}
+
+.copy-icon {
+  width: 15px;
+  height: 15px;
+}
+
+.copy span {
+  display: inline-block;
+  width: 6ch;
+  text-align: left;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+}
