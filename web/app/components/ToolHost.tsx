@@ -1,5 +1,5 @@
-import { createEffect, onCleanup } from 'solid-js';
-import type { ToolContext, ToolManifest } from '../types';
+import { createEffect, onCleanup } from 'solid-js'
+import type { ToolContext, ToolManifest } from '../types'
 
 /**
  * The single place the shell touches a tool: load the chunk, hand it a root
@@ -7,24 +7,24 @@ import type { ToolContext, ToolManifest } from '../types';
  * each tool's stylesheet scopes itself under.
  */
 export function ToolHost(props: { manifest: ToolManifest; ctx: ToolContext }) {
-  let root!: HTMLDivElement;
+	let root!: HTMLDivElement
 
-  createEffect(() => {
-    const manifest = props.manifest;
-    let dispose: (() => void) | undefined;
-    let cancelled = false;
+	createEffect(() => {
+		const manifest = props.manifest
+		let dispose: (() => void) | undefined
+		let cancelled = false
 
-    void manifest.load().then((module) => {
-      if (cancelled) return;
-      dispose = module.mount(root, props.ctx);
-    });
+		void manifest.load().then((module) => {
+			if (cancelled) return
+			dispose = module.mount(root, props.ctx)
+		})
 
-    onCleanup(() => {
-      cancelled = true;
-      dispose?.();
-      root.replaceChildren();
-    });
-  });
+		onCleanup(() => {
+			cancelled = true
+			dispose?.()
+			root.replaceChildren()
+		})
+	})
 
-  return <div class="tool-root" data-tool={props.manifest.id} ref={root} />;
+	return <div class="tool-root" data-tool={props.manifest.id} ref={root} />
 }

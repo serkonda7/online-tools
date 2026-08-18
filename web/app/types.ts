@@ -1,19 +1,19 @@
-import type { Accessor } from 'solid-js';
+import type { Accessor } from 'solid-js'
 
-export type ToolCategory = 'unix' | 'text' | 'encoding';
+export type ToolCategory = 'unix' | 'text' | 'encoding'
 
 /**
  * Everything the shell hands a tool. Tools talk to the outside world only
  * through this object — never through globals or DOM outside their own root.
  */
 export interface ToolContext {
-  toast(message: string): void;
-  copy(value: string): Promise<boolean>;
-  /** Current query string, for tools that keep shareable state in the URL. */
-  params: Accessor<URLSearchParams>;
-  /** Merge into the query string. A `null` value removes the key. */
-  setParams(patch: Record<string, string | null>): void;
-  navigate(toolId: string | null): void;
+	toast(message: string): void
+	copy(value: string): Promise<boolean>
+	/** Current query string, for tools that keep shareable state in the URL. */
+	params: Accessor<URLSearchParams>
+	/** Merge into the query string. A `null` value removes the key. */
+	setParams(patch: Record<string, string | null>): void
+	navigate(toolId: string | null): void
 }
 
 /**
@@ -23,7 +23,7 @@ export interface ToolContext {
  * one-liner — but a tool is free to be plain DOM, or use another framework.
  */
 export interface ToolModule {
-  mount(root: HTMLElement, ctx: ToolContext): () => void;
+	mount(root: HTMLElement, ctx: ToolContext): () => void
 }
 
 /**
@@ -32,11 +32,11 @@ export interface ToolModule {
  * is imported eagerly. The implementation behind `load` stays lazy.
  */
 export interface ToolManifest {
-  id: string;
-  title: string;
-  short: string;
-  description: string;
-  keywords: string[];
-  category: ToolCategory;
-  load(): Promise<ToolModule>;
+	id: string
+	title: string
+	short: string
+	description: string
+	keywords: string[]
+	category: ToolCategory
+	load(): Promise<ToolModule>
 }
