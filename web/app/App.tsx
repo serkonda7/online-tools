@@ -65,8 +65,8 @@ export function App() {
 					{(tool) => <ToolHost manifest={tool} ctx={ctx} />}
 				</Show>
 				<footer class="build-info">
-					<span>build {import.meta.env.VITE_COMMIT}</span>
-					<span>{import.meta.env.VITE_BUILD_DATE}</span>
+					<span>Last updated: 2026-08-17 09:12:13, Commit: </span>
+					<a href="https://github.com/serkonda7/online-tools/commit/5ad2d1f">5ad2d1f</a>
 				</footer>
 			</main>
 			<Toast />
